@@ -1,0 +1,40 @@
+// ===== QUIZ DATABASE =====
+const quizDB = {
+  skeleton:[
+    {q:'Câte oase are craniul adult?',opts:['6','8','12','14'],a:1,exp:'8 oase: frontal, 2 parietale, occipital, 2 temporale, sfenoid, etmoid.'},
+    {q:'Care vertebră este numită "Atlas"?',opts:['C2','C1','T1','L1'],a:1,exp:'C1 Atlas susține craniul, fără corp vertebral.'},
+    {q:'Fractura Colles afectează:',opts:['Ulna','Radiusul distal','Humerus','Clavicula'],a:1,exp:'Radius distal, cădere pe palmă. Aspect "mâner de furculiță".'},
+    {q:'Cel mai lung os al corpului:',opts:['Femur','Tibie','Humerus','Fibulă'],a:0,exp:'Femurul – aproximativ 1/4 din înălțimea corpului.'},
+    {q:'Osul sesamoid din tendonul cvadriceps:',opts:['Rotula','Pisiform','Scafoid','Calcaneu'],a:0,exp:'Rotula (patela) – cel mai mare os sesamoid.'},
+    {q:'Câte vertebre cervicale există?',opts:['5','6','7','8'],a:2,exp:'7 vertebre cervicale: C1-C7. C1=Atlas, C2=Axis, C7=proeminens.'},
+    {q:'Care os nu face parte din neurocraniu?',opts:['Frontal','Temporal','Maxila','Occipital'],a:2,exp:'Maxila face parte din viscerocraniu (oasele feței), nu din neurocraniu.'},
+    {q:'Fontanela anterioară se închide la:',opts:['3 luni','6 luni','12 luni','18-24 luni'],a:3,exp:'Fontanela anterioară (bregma) se închide între 18 și 24 de luni.'},
+    {q:'Coastele flotante sunt perechile:',opts:['8-10','10-11','11-12','12-13'],a:2,exp:'Coastele 11 și 12 sunt flotante – nu se articulează anterior.'},
+    {q:'Scafoidul este vascularizat:',opts:['Direct','Retrograd','Dinspre proximal','Dinspre distal'],a:1,exp:'Vascularizație retrogradă → risc de necroză avasculară după fractură.'},
+  ],
+  muscle:[
+    {q:'Nervul care inervează deltoidul:',opts:['Radial','Axilar','Median','Musculocutanat'],a:1,exp:'Nervul axilar (C5-C6). Lezat în luxația umărului.'},
+    {q:'Mușchiul care supinează antebrațul:',opts:['Pronator teres','Biceps brahial','Triceps','Brahioradialis'],a:1,exp:'Bicepsul – cel mai puternic supinator.'},
+    {q:'Semnul Thompson pozitiv indică:',opts:['Ruptură LCA','Ruptură tendon Achile','Entorsă gleznă','Fractură rotulă'],a:1,exp:'Ruptură de Achile – lipsa plantarflexiei la comprimarea gambei.'},
+    {q:'Mușchii manșetei rotatorilor sunt (SITS):',opts:['Supraspinos, Infraspinos, Trapez, Subscapular','Supraspinos, Infraspinos, Rotund mic, Subscapular','Supraspinos, Iliopsoas, Triceps, Subscapular','Deltoid, Infraspinos, Trapez, Subscapular'],a:1,exp:'SITS = Supraspinos, Infraspinos, Rotund mic, Subscapular.'},
+    {q:'Care mușchi este biarticular?',opts:['Soleus','Vastus medialis','Rectus femoris','Deltoid'],a:2,exp:'Rectus femoris acționează asupra șoldului (flexie) și genunchiului (extensie).'},
+    {q:'Gastrocnemianul realizează:',opts:['Doar plantarflexie','Plantarflexie și flexia genunchiului','Doar flexia genunchiului','Dorsiflexie'],a:1,exp:'Gastrocnemianul este biarticular: plantarflexie gleznă + flexie genunchi.'},
+    {q:'Care nerv inervează mușchiul trapez?',opts:['Nervul axilar','Nervul accesor (XI)','Nervul facial','Nervul vag'],a:1,exp:'Nervul accesor spinal (XI) inervează trapezul și sternocleidomastoidianul.'},
+  ],
+  ligament:[
+    {q:'Cel mai frecvent lezat ligament al gleznei:',opts:['Deltoid','ATFL','CFL','PTFL'],a:1,exp:'ATFL – entorsa în inversie.'},
+    {q:'LCA previne:',opts:['Translația posterioară','Translația anterioară','Valgus','Varus'],a:1,exp:'Translația anterioară a tibiei. Test Lachman.'},
+    {q:'Cel mai puternic ligament:',opts:['LCA','Deltoid','Iliofemural (Bigelow)','Rotund'],a:2,exp:'Bigelow – rezistență până la 350 kg.'},
+    {q:'Triada O\'Donoghue include:',opts:['LCA + LCP + LCL','LCA + LCM + Menisc medial','LCP + LCM + Menisc lateral','LCA + Rotulă + LCM'],a:1,exp:'LCA + LCM + Menisc medial. Leziune clasică în sporturile de contact.'},
+    {q:'Deschiderea normală a gurii (ATM) este:',opts:['15-25 mm','25-35 mm','35-50 mm','50-65 mm'],a:2,exp:'Deschiderea normală este 35-50 mm. Sub 25 mm = trismus.'},
+    {q:'Care ligament stabilizează genunchiul în valgus?',opts:['LCA','LCP','LCM','LCL'],a:2,exp:'LCM (ligamentul colateral medial) previne stresul în valgus.'},
+  ],
+  dental:[
+    {q:'Formula dentară permanentă:',opts:['28','30','32','34'],a:2,exp:'32 dinți: 8I, 4C, 8PM, 12M.'},
+    {q:'Cel mai dur țesut:',opts:['Dentină','Smalț','Cement','Os'],a:1,exp:'Smalțul – 96% hidroxiapatită, fără regenerare.'},
+    {q:'Primul dinte permanent care erupe:',opts:['Incisiv central inferior','Incisiv central superior','Molarul 1 inferior','Canin'],a:2,exp:'Molarul 1 inferior (36/46) erupe la 6 ani – "dintele de 6 ani".'},
+    {q:'Câți cuspizi are primul molar inferior?',opts:['3','4','5','6'],a:2,exp:'5 cuspizi: 3 vestibulari, 2 linguali.'},
+    {q:'Caninul superior erupe la:',opts:['6-7 ani','9-10 ani','11-12 ani','13-14 ani'],a:2,exp:'Caninul superior erupe la 11-12 ani.'},
+    {q:'Sondarea parodontală normală este:',opts:['<1 mm','<3 mm','<5 mm','<6 mm'],a:1,exp:'Sondarea normală <3 mm. >5 mm = buzunar patologic.'},
+  ],
+};

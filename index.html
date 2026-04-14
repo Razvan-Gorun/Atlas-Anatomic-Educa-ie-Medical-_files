@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Atlas Anatomic · Educație Medicală</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- TOOLTIP -->
+<div id="tip" style="display: none;"></div>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" style="display: flex;">
+  <div class="login-card">
+    <div class="login-logo">Atlas<span>Anatomic</span></div>
+    <div class="login-tagline">// platforma educatiei medicale</div>
+    <div class="login-tabs">
+      <button class="ltab active" onclick="switchAuthTab('login',this)">Autentificare</button>
+      <button class="ltab" onclick="switchAuthTab('register',this)">Cont nou</button>
+    </div>
+    <div id="login-form">
+      <div class="field"><label>EMAIL SAU NUME</label><input id="li-user" type="text" placeholder="student@umf.ro"></div>
+      <div class="field"><label>PAROLĂ</label><input id="li-pass" type="password" placeholder="••••••••"></div>
+      <button class="btn-primary" onclick="doLogin()">Intră în Atlas</button>
+      <div class="login-demo">sau <a onclick="demoLogin()">autentifică-te cu cont demo</a></div>
+      <div class="demo-accounts">
+        <strong style="color:var(--text2)">Conturi demo:</strong><br>
+        student@demo.ro / student123<br>
+        profesor@demo.ro / prof123
+      </div>
+    </div>
+    <div id="register-form" style="display:none">
+      <div class="field"><label>NUME COMPLET</label><input id="rg-name" type="text" placeholder="Ion Popescu"></div>
+      <div class="field"><label>EMAIL</label><input id="rg-email" type="email" placeholder="student@umf.ro"></div>
+      <div class="field"><label>AN DE STUDIU</label>
+        <select id="rg-year">
+          <option>Anul I – Noțiuni de bază</option>
+          <option>Anul II – Morfologie</option>
+          <option>Anul III – Patologie</option>
+          <option>Anul IV – Clinică</option>
+          <option>Rezidențiat</option>
+        </select>
+      </div>
+      <div class="field"><label>PAROLĂ</label><input id="rg-pass" type="password" placeholder="Min. 6 caractere"></div>
+      <button class="btn-primary" onclick="doRegister()">Creează cont</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="visible">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-logo">Atlas<span>Anatomic</span></div>
+    <div class="tb-sep"></div>
+    <div class="layer-group">
+      <button class="lbtn on" data-layer="skeleton" onclick="toggleLayer('skeleton',this)">🦴 Schelet</button>
+      <button class="lbtn" data-layer="muscle" onclick="toggleLayer('muscle',this)">💪 Mușchi</button>
+      <button class="lbtn" data-layer="ligament" onclick="toggleLayer('ligament',this)">🔗 Ligamente</button>
+      <button class="lbtn" data-layer="dental" onclick="toggleLayer('dental',this)">🦷 Dentar</button>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="global-prog"><div class="global-prog-fill" id="gp-fill" style="width:0%"></div></div>
+    <div class="prog-label" id="gp-label">0%</div>
+    <input class="tb-search" placeholder="🔍 Caută structură..." oninput="searchAll(this.value)">
+    <div class="user-pill" id="user-pill">
+      <div class="user-avatar" id="ua-initials">IP</div>
+      <div class="user-name" id="ua-name">Ion</div>
+      <button class="logout-btn" onclick="doLogout()">ieșire</button>
+    </div>
+  </div>
+
+  <!-- LEFT: SKELETON SVG -->
+  <div class="left-panel">
+    <div class="view-controls">
+      <button class="vc-btn active" onclick="setView('anterior',this)">Anterior</button>
+      <button class="vc-btn" onclick="setView('lateral',this)">Lateral</button>
+      <button class="vc-btn" onclick="setView('posterior',this)">Posterior</button>
+    </div>
+    <div class="skel-container" id="skel-container">
+      <div class="skel-label-overlay"><div class="skel-label" id="view-label">VEDERE ANTERIOARĂ</div></div>
+    </div>
+    <div class="legend">
+      <div class="leg" id="leg-s"><div class="leg-dot" style="background:#3d8bff"></div>Schelet</div>
+      <div class="leg layer-off" id="leg-m" data-for="muscle"><div class="leg-dot" style="background:#ff6b6b"></div>Mușchi</div>
+      <div class="leg layer-off" id="leg-l" data-for="ligament"><div class="leg-dot" style="background:#f5c842"></div>Ligamente</div>
+      <div class="leg layer-off" id="leg-d" data-for="dental"><div class="leg-dot" style="background:#00d4aa"></div>Dentar</div>
+    </div>
+  </div>
+
+  <!-- CENTER: BRANCHES -->
+  <div class="center-panel">
+    <div class="cp-header">
+      <div class="cp-title" id="cp-title">Ramuri Anatomice</div>
+      <div class="cp-sub" id="cp-sub">// selectați o ramură pentru a explora</div>
+    </div>
+    <div class="branch-scroll" id="branch-scroll"></div>
+  </div>
+
+  <!-- RIGHT: DETAIL + QUIZ + PROGRESS -->
+  <div class="right-panel">
+    <div class="rp-tabs">
+      <button class="rp-tab active" onclick="switchRPTab('info',this)">📋 Info</button>
+      <button class="rp-tab" onclick="switchRPTab('quiz',this)">🎯 Quiz</button>
+      <button class="rp-tab" onclick="switchRPTab('progress',this)">📊 Progres</button>
+    </div>
+    <div class="rp-content" id="rp-content">
+      <div style="text-align:center;padding:3rem 1rem;color:var(--text3)">
+        <div style="font-size:32px;margin-bottom:.75rem">🦴</div>
+        <div style="font-size:12px">Click pe o structură din schelet sau alege o ramură din stânga</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script src="js/storage.js"></script>
+<script src="js/data/skeleton.js"></script>
+<script src="js/data/muscles.js"></script>
+<script src="js/data/ligaments.js"></script>
+<script src="js/data/dental.js"></script>
+<script src="js/data/branches.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/svg-core.js"></script>
+<script src="js/layers/skeleton.js"></script>
+<script src="js/layers/muscles.js"></script>
+<script src="js/layers/ligaments.js"></script>
+<script src="js/layers/dental.js"></script>
+<script src="js/svg-builder.js"></script>
+<script src="js/core.js"></script>
+</body>
+</html>
