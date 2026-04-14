@@ -36,7 +36,6 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
   background: var(--bg);
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
@@ -165,12 +164,10 @@ html, body {
   line-height: 2;
 }
 
-/* ---------- MAIN APP LAYOUT (MOBILE-FIRST) ---------- */
+/* ---------- MAIN APP LAYOUT ---------- */
 #app {
   display: none;
   height: 100vh;
-  flex-direction: column;
-  overflow: hidden;
 }
 #app.visible {
   display: flex;
@@ -309,15 +306,18 @@ html, body {
 }
 .logout-btn:hover { color: var(--accent3); }
 
-/* PANOURI PRINCIPALE (MOBILE: COLOANĂ) */
+/* ---------- MOBILE LAYOUT (DEFAULT) ---------- */
+/* Toate panourile sunt vizibile pe verticală, cu scroll pe întregul app */
+#app {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .left-panel {
   background: var(--bg2);
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
-  max-height: 55vh;
-  overflow: hidden;
 }
 
 .view-controls {
@@ -345,8 +345,7 @@ html, body {
 }
 
 .skel-container {
-  flex: 1;
-  overflow-y: auto;
+  overflow-y: visible;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -355,7 +354,7 @@ html, body {
 }
 .skel-container svg {
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -404,9 +403,6 @@ html, body {
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
-  max-height: 25vh;
-  overflow: hidden;
 }
 .cp-header {
   padding: 0.75rem 1rem;
@@ -425,8 +421,7 @@ html, body {
   margin-top: 2px;
 }
 .branch-scroll {
-  flex: 1;
-  overflow-y: auto;
+  overflow-y: visible;
   padding: 0.5rem;
 }
 .branch {
@@ -525,9 +520,7 @@ html, body {
   background: var(--bg2);
   display: flex;
   flex-direction: column;
-  flex: 1 1 0;
-  min-height: 0;
-  overflow: hidden;
+  min-height: 300px;
 }
 .rp-tabs {
   display: flex;
@@ -551,10 +544,8 @@ html, body {
   border-bottom-color: var(--accent);
 }
 .rp-content {
-  flex: 1;
-  overflow-y: auto;
+  overflow-y: visible;
   padding: 1rem;
-  -webkit-overflow-scrolling: touch;
 }
 
 .rp-title {
@@ -849,12 +840,13 @@ html, body {
   font-family: 'DM Mono', monospace;
 }
 
-/* ---------- TABLET/DESKTOP (>900px) ---------- */
+/* ---------- DESKTOP LAYOUT (>900px) ---------- */
 @media (min-width: 900px) {
   #app {
     display: grid !important;
     grid-template-columns: 280px 1fr 300px;
     grid-template-rows: 56px 1fr;
+    overflow: hidden;
   }
   .topbar {
     grid-column: 1 / -1;
@@ -863,19 +855,32 @@ html, body {
   }
   .tb-search { width: 200px; }
   .layer-group { flex-wrap: nowrap; }
-  
+
   .left-panel {
     border-right: 1px solid var(--border);
     border-bottom: none;
-    max-height: none;
+    overflow: hidden;
+  }
+  .skel-container {
+    overflow-y: auto;
+    flex: 1;
   }
   .center-panel {
     border-right: 1px solid var(--border);
     border-bottom: none;
-    max-height: none;
+    overflow: hidden;
+  }
+  .branch-scroll {
+    overflow-y: auto;
+    flex: 1;
   }
   .right-panel {
     min-height: 0;
+    overflow: hidden;
+  }
+  .rp-content {
+    overflow-y: auto;
+    flex: 1;
   }
   .skel-container svg {
     max-width: none;
